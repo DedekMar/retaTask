@@ -1,0 +1,19 @@
+version: '3'
+services:
+  loader:
+    build: ./loader
+    volumes:
+      - ./xml_data:/loader/xml_data
+    command: ["python", "-m", "loader", "-td", "./xml_data"]
+
+  webapp:
+    build: ./webapp
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./xml_data:/xml_data
+    depends_on:
+      - loader
+
+volumes:
+  xml_data:
