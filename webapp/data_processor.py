@@ -14,7 +14,7 @@ class DataProcessor:
         Returns:
             None
         """
-        self.root = self.open_xml_file(file_path)
+        self.file_path = file_path
 
     def open_xml_file(self, file_path):
         """
@@ -43,7 +43,7 @@ class DataProcessor:
         Returns:
             List[xml.etree.ElementTree.Element]: A list of all item elements found in the XML file.
         """        
-        items_element = self.root.find('items')
+        items_element = self.open_xml_file(self.file_path).find('items')
 
         # Count the number of child 'item' elements in 'items'
         if items_element is not None:
@@ -85,7 +85,7 @@ class DataProcessor:
             List[dict]: A list of dictionaries, each containing information about an item and its spare parts.
         """        
         # Find all items that have spares using xpath 
-        items_with_parts = self.root.xpath(f"./items/item[descendant::parts/part[@categoryId='{category_id}']/item]")
+        items_with_parts = self.open_xml_file(self.file_path).xpath(f"./items/item[descendant::parts/part[@categoryId='{category_id}']/item]")
         items_with_parts_list = []
 
         for item in items_with_parts:
