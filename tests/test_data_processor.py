@@ -3,12 +3,12 @@ from webapp.data_processor import DataProcessor
 
 class TestDataProcessor(unittest.TestCase):
     def setUp(self):
-        # Ideally a test xml file would be used here, but the purpose of this demo, let's just use the downloaded export_full file in the main project directory
-        self.data_processor = DataProcessor('export_full.xml')
+        # Ideally a test xml file would be used here, but the purpose of this demo, let's just use the downloaded export_full file in the /xml_data directory (when it is downloaded)
+        self.data_processor = DataProcessor('./xml_data/export_full.xml')
 
     # Test if open_xml_file returns the root element when the file is valid
     def test_open_xml_file_success(self):        
-        root = self.data_processor.open_xml_file('export_full.xml')
+        root = self.data_processor.open_xml_file(self.data_processor.file_path)
         self.assertIsNotNone(root)
 
     # Test we get an exception and None as return when the path is invalid
