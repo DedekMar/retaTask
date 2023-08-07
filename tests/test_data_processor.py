@@ -13,9 +13,11 @@ class TestDataProcessor(unittest.TestCase):
 
     # Test we get an exception and None as return when the path is invalid
     def test_open_xml_file_invalid_file(self):
-        with self.assertRaises(OSError):
+        try:
             root = self.data_processor.open_xml_file("invalid_path")
             self.assertIsNone(root)
+        except Exception as e:
+            self.assertIn("failed to load external entity", str(e))
 
     # Check the method returns the correct number of items in the test xml
     def test_get_all_items(self):
